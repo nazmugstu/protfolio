@@ -1,0 +1,153 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% block header %}
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+    </header>
+{% endblock %}
+
+<!-- Hero Section -->
+<section id="hero">
+    <img src="{% static 'img/mypic.jpg.jpg' %}" alt="Nazmul's Profile Picture" class="profile-img">
+    <h1>Hi, I'm Nazmul</h1>
+    <h2>Full-Stack Web Developer</h2>
+    <p>I build modern and scalable web applications with Django & React.</p>
+    <div class="button-group">
+        <a href="#projects" class="btn">View Projects</a>
+        <a href="{% static 'img/nazmul13.pdf' %}" class="btn" download>Download CV</a>
+    </div>
+</section>
+
+<!-- Skills / Services Section -->
+<section class="skills-dashboard" id="skills">
+    <div class="container">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            {% for skill in skills %}
+            <div class="skill-card">
+                <div class="skill-content">
+                    <!-- Skill icon, styled like project imagery -->
+                    <div class="skill-icon">{{ skill.icon|safe }}</div>
+                    <h3>{{ skill.name }}</h3>
+                    <p>{{ skill.description|default:"No description" }}</p>
+                    <!-- Proficiency bar styled consistently -->
+                    <div class="proficiency">
+                        <span>Proficiency: {{ skill.proficiency }}%</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: {{ skill.proficiency }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>NO skills are added</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="projects-container">
+        {% for project in projects|slice:":3" %}
+        <div class="project-box">
+            <!-- Image Slider for Project -->
+            <div class="project-slider">
+                {% for image in project.images.all %}
+                <div class="slide">
+                    <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" class="slider-image">
+                    {% if image.caption %}
+                    <p class="slide-caption">{{ image.caption }}</p>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="slide">
+                    <img src="{% static 'images/placeholder.jpg' %}" alt="No image available" class="slider-image">
+                    <p class="slide-caption">{{ project.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description|truncatechars:100 }}</p>
+            <div class="project-links">
+                {% if project.live_demo %}
+                <a href="{{ project.live_demo }}" class="btn" target="_blank">Live Demo</a>
+                {% endif %}
+                <a href="{% url 'project_detail' project.id %}" class="btn">Details</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No projects available at the moment.</p>
+        {% endfor %}
+    </div>
+    <div class="see-all-btn">
+        <a href="{% url 'projects' %}" class="btn">See All Projects</a>
+    </div>
+</section>
+
+<!-- About Me Section -->
+<section id="about">
+    <h2>About Me</h2>
+    <p>Hello, I'm Nazmul, a Django developer with a love for building web applications that are both powerful and user-friendly. Trained at oStad, I specialize in Django and Python, creating everything from smooth backends to interactive frontends with React. Coding is my way of solving problems and bringing ideas to life, and I enjoy working on projects that make an impact. I'm excited to connect with people or companies who value clean code, scalability, and a collaborative spirit!</p>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2>Contact Me</h2>
+    <p>Email: alam01640882530@gmail.com</p>
+    <p>Phone: +8801731380156</p>
+    <p>
+        <a href="https://github.com/alam0164088" target="_blank">GitHub</a> |
+        <a href="https://www.linkedin.com/in/nazmul-alam-803615325?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a>
+    </p>
+    <a href="{% url 'contact' %}" class="btn">Message Me</a>
+</section>
+
+<!-- Include the CSS -->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<!-- Include Font Awesome for arrows -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Include jQuery and Slick JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- Include custom JS -->
+<script> 
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all project sliders
+        $('.project-slider').slick({
+            dots: true,
+            arrows: true,
+            infinite: true,
+            speed: 500,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            prevArrow: '<button type="button" class="slick-prev"></button>',
+            nextArrow: '<button type="button" class="slick-next"></button>',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false
+                    }
+                }
+            ]
+        });
+    
+        // Add hover effect for arrows
+        $('.slick-prev, .slick-next').hover(
+            function() {
+                $(this).css('background', 'var(--primary)');
+            },
+            function() {
+                $(this).css('background', 'rgba(0, 0, 0, 0.5)');
+            }
+        );
+    });
+</script>
+{% endblock %}

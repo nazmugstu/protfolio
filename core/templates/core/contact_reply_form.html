@@ -1,0 +1,15 @@
+<!-- core/templates/core/contact_reply_form.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h2>Reply to Message from {{ message.name }}</h2>
+  !-- core/contact_reply_form.html -->
+  <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Reply</button>
+  </form>
+  <a href="{% url 'contact_reply_form' message_id=message.id %}">Reply</a>
+
+  
+{% endblock %}

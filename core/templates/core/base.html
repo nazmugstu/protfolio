@@ -1,0 +1,224 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <style>
+        /* Critical CSS for initial render */
+        :root {
+            --nav-height: 70px;
+            /* Light Mode */
+            --bg-light: #ffffff;
+            --text-light: #333333;
+            --card-bg-light: #f8f9fa;
+            --nav-bg-light: rgba(255, 255, 255, 0.95);
+            --footer-bg-light: rgba(20, 40, 80, 0.9);
+            
+            /* Dark Mode */
+            --bg-dark: #1a1a2e;
+            --text-dark: #ffffff;
+            --card-bg-dark: #16213e;
+            --nav-bg-dark: rgba(30, 60, 114, 0.95);
+            --footer-bg-dark: rgba(10, 20, 40, 0.9);
+            
+            /* Current Mode (Defaults to Dark) */
+            --bg-color: var(--bg-dark);
+            --text-color: var(--text-dark);
+            --card-bg: var(--card-bg-dark);
+            --nav-bg: var(--nav-bg-dark);
+            --footer-bg: var(--footer-bg-dark);
+        }
+        body {
+            padding-top: var(--nav-height);
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        header {
+            padding-top: 100px;
+        }
+        footer {
+            background: var(--footer-bg);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="nav-logo"><i class="fas fa-code"></i> Nazmul</a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'about' %}" class="nav-link"><i class="fas fa-user"></i> About</a>
+                <a href="{% url 'projects' %}" class="nav-link"><i class="fas fa-code"></i> Projects</a>
+                <a href="{% url 'services' %}" class="nav-link"><i class="fas fa-cog"></i> Services</a>
+                <a href="{% url 'contact' %}" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="{% url 'customer_messages' %}" class="nav-link"><i class="fas fa-comments"></i> Messages</a>
+                <button id="themeToggle" class="theme-toggle nav-link">
+                    <i class="fas fa-moon"></i>
+                    <span class="theme-text">Dark Mode</span>
+                </button>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+          
+          <!-- কলাম ১: সম্পর্কে -->
+          <div class="footer-column about-column">
+            <h3 class="footer-heading">Nazmul Alam</h3>
+            <p class="footer-text">Full Stack Developer specializing in Django and React. Creating modern, responsive web applications.</p>
+            <div class="footer-social">
+              <a href="//github.com/alam0164088" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/nazmul-alam-803615325?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+          
+          <!-- কলাম ২: দ্রুত লিংক -->
+          <div class="footer-column">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="{% url 'home' %}" class="footer-link">Home</a></li>
+              <li><a href="{% url 'about' %}" class="footer-link">About</a></li>
+              <li><a href="{% url 'projects' %}" class="footer-link">Projects</a></li>
+              <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          
+          <!-- কলাম ৩: যোগাযোগ -->
+          <div class="footer-column">
+            <h3 class="footer-heading">Contact Me</h3>
+            <div class="contact-info">
+              <p class="footer-text"><i class="fas fa-envelope contact-icon"></i> alam01640882530@gmail.com</p>
+              <p class="footer-text"><i class="fas fa-phone contact-icon"></i> +880 1640882530</p>
+              <p class="footer-text"><i class="fas fa-map-marker-alt contact-icon"></i> Dhaka, Bangladesh</p>
+            </div>
+          </div>
+          
+        </div>
+        
+        <div class="footer-bottom">
+          <p class="copyright">&copy; {% now "Y" %} Nazmul Alam. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const themeText = themeToggle.querySelector('.theme-text');
+        
+        // Check for saved preference or use dark mode as default
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(currentTheme);
+        
+        themeToggle.addEventListener('click', function() {
+            const newTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+            setTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        function setTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeText.textContent = 'Light Mode';
+                
+                // Update CSS variables
+                document.documentElement.style.setProperty('--bg-color', 'var(--bg-light)');
+                document.documentElement.style.setProperty('--text-color', 'var(--text-light)');
+                document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-light)');
+                document.documentElement.style.setProperty('--nav-bg', 'var(--nav-bg-light)');
+                document.documentElement.style.setProperty('--footer-bg', 'var(--footer-bg-light)');
+            } else {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeText.textContent = 'Dark Mode';
+                
+                // Update CSS variables
+                document.documentElement.style.setProperty('--bg-color', 'var(--bg-dark)');
+                document.documentElement.style.setProperty('--text-color', 'var(--text-dark)');
+                document.documentElement.style.setProperty('--card-bg', 'var(--card-bg-dark)');
+                document.documentElement.style.setProperty('--nav-bg', 'var(--nav-bg-dark)');
+                document.documentElement.style.setProperty('--footer-bg', 'var(--footer-bg-dark)');
+            }
+        }
+
+        // Mobile menu toggle (existing functionality)
+        const nav = document.querySelector('nav');
+        nav.offsetHeight; // Prevent layout jump
+        
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // থিম টগল এবং মোবাইল মেনু কোড
+        
+        // স্লাইডার ইনিশিয়ালাইজেশন
+        if($('.project-slider').length) {
+            $('.project-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true
+            });
+        }
+    });
+
+    </script>
+</body>
+</html>

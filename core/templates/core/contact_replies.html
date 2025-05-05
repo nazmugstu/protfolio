@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% block title %}Contact Replies{% endblock %}
+{% block content %}
+    <h2>Contact Replies</h2>
+    {% for message in messages %}
+        <p>{{ message.name }}: {{ message.message }}</p>
+        <p>Reply: {{ message.reply }}</p>
+        <a href="{% url 'contact_reply_form' message_id=message.id %}">View Reply Form</a>
+        <a href="{% url 'reply_to_message' message_id=message.id %}">Reply</a>
+    {% endfor %}
+{% endblock %}

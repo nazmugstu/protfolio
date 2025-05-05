@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>Customer Messages</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    {% for message in messages %}
+    <li>{{ message.subject }} - {{ message.message }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

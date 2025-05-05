@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<h2>Contact Me</h2>
+<p>If you'd like to work with me, feel free to reach out:</p>
+
+<!-- ✅ Success message -->
+{% if message %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endif %}
+
+<ul>
+    <li>Email: <a href="mailto:alam01640882530@gmail.com">alam01640882530@gmail.com</a></li>
+    <li>Phone: <a href="tel:+8801731380156">+8801731380156</a></li>
+</ul>
+
+<h3>Or, send me a message directly:</h3>
+
+<form method="POST" action="{% url 'contact' %}">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Automatically render form fields as paragraphs -->
+    <button type="submit">Send Message</button>
+</form>
+
+<h3>Connect with Me:</h3>
+<p>
+    <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
+    <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a> |
+    <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+</p>
+
+<h3>Find Me:</h3>
+<p>Location: Dhaka, Bangladesh</p>
+
+<!-- Optional Google Map -->
+<iframe src="https://www.google.com/maps/embed?pb=your-map-link" width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+{% endblock %}
