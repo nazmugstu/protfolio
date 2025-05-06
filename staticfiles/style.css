@@ -539,7 +539,6 @@ p, .about-text p {
 }
 
 /* Featured Projects Section (Home Page) */
-/* Featured Projects Section */
 #projects {
     padding: var(--section-padding);
     max-width: 1100px;
@@ -569,10 +568,10 @@ p, .about-text p {
 .projects-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px; /* Consistent with All Projects */
+    gap: 30px;
     margin-bottom: 40px;
     justify-content: center;
-    align-items: stretch; /* Ensure all cards are same height */
+    align-items: stretch;
     box-sizing: border-box;
 }
 
@@ -584,8 +583,8 @@ p, .about-text p {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 480px; /* Match All Projects for consistency */
-    width: 100%; /* Full width within grid column */
+    height: 480px;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -596,14 +595,15 @@ p, .about-text p {
 
 .project-slider {
     width: 100%;
-    height: 260px; /* Match All Projects image height */
+    height: 260px;
     position: relative;
     overflow: hidden;
+    margin-top: -15px; /* ইমেজ আরো উপরে তুলতে */
 }
 
 .slider-image {
     width: 100%;
-    height: 260px; /* Match slider height */
+    height: 260px;
     object-fit: cover;
     transition: transform 0.5s ease;
 }
@@ -625,67 +625,73 @@ p, .about-text p {
     text-align: center;
 }
 
+.project-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 15px 20px;
+}
+
 .project-box h3 {
     font-size: 1.4em;
     color: var(--heading-color);
-    margin: 15px 20px 10px;
+    margin: 0 0 10px;
     font-family: var(--font-heading);
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.4;
+    overflow: visible;
+    min-height: 40px; /* নিশ্চিত করতে নামের জন্য জায়গা */
 }
 
 .project-box p {
     color: var(--text-color);
-    margin: 0 20px 15px;
+    margin: 0 0 15px;
     line-height: 1.6;
     font-size: 0.95em;
     text-align: center;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    max-height: 48px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .project-links {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin: 10px 20px 20px;
+    gap: 10px;
+    margin-top: auto; /* Pushes buttons to the bottom */
+    padding: 10px 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .project-links .btn {
-    padding: 8px 10px;
-    font-size: 0.9em;
+    padding: 7px 15px;
+    font-size: 0.85em;
+    min-width: 90px;
     border-radius: 50px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    min-width: 100px;
-    text-align: center;
 }
 
-.project-links .btn:first-child {
+#projects .project-links .btn:first-child {
     background: var(--primary-gradient);
     color: white;
-    box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
 }
 
 .project-links .btn:last-child {
     background: var(--card-bg);
     color: var(--primary);
-    border: 2px solid var(--primary);
+    border: 1px solid var(--primary);
 }
 
 .project-links .btn:hover {
     transform: translateY(-2px);
 }
 
-.project-links .btn:first-child:hover {
-    box-shadow: 0 6px 15px rgba(0, 114, 255, 0.4);
+#projects .project-links .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
 }
 
 .project-links .btn:last-child:hover {
@@ -739,20 +745,30 @@ p, .about-text p {
         height: 450px;
     }
 
-    .project-slider,
+    .project-slider {
+        height: 240px;
+        margin-top: -12px; /* রেসপনসিভে সামান্য কম */
+    }
+
     .slider-image {
         height: 240px;
     }
 
     .project-box h3 {
         font-size: 1.3em;
-        margin: 12px 15px 8px;
+        margin: 0 0 8px;
+        min-height: 36px;
     }
 
     .project-box p {
         font-size: 0.9em;
-        margin: 0 15px 12px;
-        -webkit-line-clamp: 2;
+        margin: 0 0 12px;
+        max-height: 44px;
+    }
+
+    .project-links {
+        margin: 0 15px 25px; /* বাটন নিচে নামানো */
+        margin-top: auto;
     }
 
     .project-links .btn {
@@ -764,7 +780,7 @@ p, .about-text p {
 
 @media (max-width: 768px) {
     .projects-container {
-        grid-template-columns: 1fr; /* Stack cards vertically */
+        grid-template-columns: 1fr;
         gap: 30px;
         max-width: 500px;
         margin: 0 auto;
@@ -774,23 +790,30 @@ p, .about-text p {
         height: 420px;
     }
 
-    .project-slider,
+    .project-slider {
+        height: 220px;
+        margin-top: -10px;
+    }
+
     .slider-image {
         height: 220px;
     }
 
     .project-box h3 {
         font-size: 1.25em;
-        margin: 10px 15px 8px;
+        margin: 0 0 8px;
+        min-height: 34px;
     }
 
     .project-box p {
         font-size: 0.85em;
-        margin: 0 15px 10px;
+        margin: 0 0 10px;
+        max-height: 40px;
     }
 
     .project-links {
-        margin: 10px 15px 15px;
+        margin: 0 15px 20px;
+        margin-top: auto;
     }
 
     .project-links .btn {
@@ -811,24 +834,30 @@ p, .about-text p {
         height: 400px;
     }
 
-    .project-slider,
+    .project-slider {
+        height: 200px;
+        margin-top: -8px;
+    }
+
     .slider-image {
         height: 200px;
     }
 
     .project-box h3 {
         font-size: 1.2em;
-        margin: 8px 10px 6px;
+        margin: 0 0 6px;
+        min-height: 32px;
     }
 
     .project-box p {
         font-size: 0.8em;
-        margin: 0 10px 8px;
-        -webkit-line-clamp: 2;
+        margin: 0 0 8px;
+        max-height: 38px;
     }
 
     .project-links {
-        margin: 8px 10px 10px;
+        margin: 0 10px 15px;
+        margin-top: auto;
     }
 
     .project-links .btn {
@@ -1440,6 +1469,255 @@ p, .about-text p {
     display: block;
     animation: fadeInUp 1s ease-out 0.8s;
     animation-fill-mode: backwards;
+}
+
+/* Responsive Design for Contact Section */
+@media (max-width: 1024px) {
+    #contact {
+        padding: 40px 12px;
+        max-width: 95%;
+    }
+
+    #contact h2 {
+        font-size: 2em;
+    }
+
+    #contact h3 {
+        font-size: 1.4em;
+    }
+
+    #contact p, #contact p.location {
+        font-size: 0.95em;
+    }
+
+    .alert-success {
+        max-width: 85%;
+        font-size: 0.9em;
+        padding: 12px;
+    }
+
+    #contact ul {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+    }
+
+    #contact ul li {
+        font-size: 0.95em;
+        padding: 10px;
+    }
+
+    #contact p.social-links {
+        gap: 12px;
+    }
+
+    #contact p.social-links a {
+        font-size: 0.95em;
+        padding: 7px 12px;
+    }
+
+    #contact form {
+        max-width: 80%;
+        padding: 15px;
+    }
+
+    #contact form label {
+        font-size: 0.95em;
+    }
+
+    #contact form input,
+    #contact form textarea {
+        font-size: 0.95em;
+        padding: 10px;
+    }
+
+    #contact form button[type="submit"] {
+        font-size: 0.95em;
+        padding: 10px 20px;
+    }
+
+    #contact iframe {
+        height: 300px;
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    #contact {
+        padding: 30px 10px;
+        max-width: 90%;
+    }
+
+    #contact h2 {
+        font-size: 1.8em;
+    }
+
+    #contact h3 {
+        font-size: 1.3em;
+    }
+
+    #contact p, #contact p.location {
+        font-size: 0.9em;
+    }
+
+    .alert-success {
+        max-width: 90%;
+        font-size: 0.85em;
+        padding: 10px;
+    }
+
+    #contact ul {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #contact ul li {
+        font-size: 0.9em;
+        padding: 8px;
+        justify-content: center;
+    }
+
+    #contact p.social-links {
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #contact p.social-links a {
+        font-size: 0.9em;
+        padding: 6px 10px;
+        width: 180px;
+        justify-content: center;
+    }
+
+    #contact form {
+        max-width: 90%;
+        padding: 12px;
+    }
+
+    #contact form label {
+        font-size: 0.9em;
+    }
+
+    #contact form input:focus + label,
+    #contact form textarea:focus + label,
+    #contact form input:not(:placeholder-shown) + label,
+    #contact form textarea:not(:placeholder-shown) + label {
+        top: -8px;
+        font-size: 0.75em;
+    }
+
+    #contact form input,
+    #contact form textarea {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    #contact form button[type="submit"] {
+        font-size: 0.9em;
+        padding: 8px 18px;
+    }
+
+    #contact iframe {
+        height: 280px;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact {
+        padding: 20px 8px;
+        max-width: 100%;
+        margin: 20px 5px;
+    }
+
+    #contact h2 {
+        font-size: 1.6em;
+    }
+
+    #contact h2::after {
+        width: 60px;
+        height: 3px;
+    }
+
+    #contact h3 {
+        font-size: 1.2em;
+    }
+
+    #contact p, #contact p.location {
+        font-size: 0.85em;
+    }
+
+    .alert-success {
+        max-width: 95%;
+        font-size: 0.8em;
+        padding: 8px;
+    }
+
+    #contact ul {
+        gap: 8px;
+    }
+
+    #contact ul li {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+
+    #contact ul li a::before {
+        font-size: 0.9em;
+    }
+
+    #contact p.social-links {
+        gap: 8px;
+    }
+
+    #contact p.social-links a {
+        font-size: 0.85em;
+        padding: 5px 8px;
+        width: 160px;
+    }
+
+    #contact form {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    #contact form p {
+        margin-bottom: 20px;
+    }
+
+    #contact form label {
+        font-size: 0.85em;
+        top: 10px;
+        left: 12px;
+    }
+
+    #contact form input:focus + label,
+    #contact form textarea:focus + label,
+    #contact form input:not(:placeholder-shown) + label,
+    #contact form textarea:not(:placeholder-shown) + label {
+        top: -6px;
+        font-size: 0.7em;
+    }
+
+    #contact form input,
+    #contact form textarea {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+
+    #contact form textarea {
+        min-height: 100px;
+    }
+
+    #contact form button[type="submit"] {
+        font-size: 0.85em;
+        padding: 6px 15px;
+    }
+
+    #contact iframe {
+        height: 250px;
+        max-width: 100%;
+    }
 }
 
 /* Customer Messages & Contact Replies */
